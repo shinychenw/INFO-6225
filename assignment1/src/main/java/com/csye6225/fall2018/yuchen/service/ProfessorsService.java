@@ -21,16 +21,6 @@ public class ProfessorsService {
         return list;
     }
 
-    //Adding a professor
-    public void addProfessor(String firsName, String lastName, String department, Date joiningDate){
-        // Next Id?
-        long nextAvailableId = prof_Map.size() + 1;
-
-        //Create a Professor Object
-        Professor prof1 = new Professor(nextAvailableId, firsName, lastName, department, joiningDate);
-        prof_Map.put(nextAvailableId, prof1);
-    }
-
     public Professor addProfessor(Professor prof){
         long nextAvailableId = prof_Map.size() + 1;
         prof.setProfessorId(nextAvailableId);

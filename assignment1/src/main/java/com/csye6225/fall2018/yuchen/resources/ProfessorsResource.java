@@ -14,12 +14,6 @@ public class ProfessorsResource {
 
     ProfessorsService professorsService = new ProfessorsService();
 
-    /*@GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Professor> getProfessors(){
-        return professorsService.getAllProfessors();
-    }*/
-
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Professor> getProfessorsByDepartment(@QueryParam("department") String department){
@@ -35,10 +29,6 @@ public class ProfessorsResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Professor getProfessor(@PathParam("professorId") Long profId){
         return professorsService.getProfessor(profId);
-    }
-
-    public void addProfessor(String firstName, String lastName ,String department, Date joiningDate){
-        professorsService.addProfessor(firstName, lastName, department, joiningDate);
     }
 
     @DELETE
