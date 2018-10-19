@@ -1,6 +1,7 @@
 package com.csye6225.fall2018.yuchen.datamodel;
 
-import java.util.Date;
+
+import java.util.List;
 
 public class Student {
     private String firstName;
@@ -8,10 +9,14 @@ public class Student {
     private String programName;
     private String imageUri;
     private long studentId;
-    private String[] coursesEnrolled;
-    private Date joiningDate;
+    private List<Long> coursesEnrolled;
 
     public Student() {
+    }
+
+    public boolean isEnrolled(Long courseId){
+        if(coursesEnrolled.contains(courseId)) return true;
+        return false;
     }
 
     public String getFirstName() {
@@ -54,19 +59,11 @@ public class Student {
         this.studentId = studentId;
     }
 
-    public String[] getCoursesEnrolled() {
+    public List<Long> getCoursesEnrolled() {
         return coursesEnrolled;
     }
 
-    public void setCoursesEnrolled(String[] coursesEnrolled) {
+    public void setCoursesEnrolled(List<Long> coursesEnrolled) {
         this.coursesEnrolled = coursesEnrolled;
-    }
-
-    public Date getJoiningDate() {
-        return joiningDate;
-    }
-
-    public void setJoiningDate(Date joiningDate) {
-        this.joiningDate = joiningDate;
     }
 }

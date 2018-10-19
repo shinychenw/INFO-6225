@@ -14,11 +14,14 @@ public class StudentsResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Student> getStudentsByProgram(@QueryParam("program") String program){
-        if(program == null){
-            return studentsService.getAllStudents();
+    public List<Student> getStudentsByProgram(@QueryParam("program") String program, @QueryParam("course") String course){
+        if(program != null){
+            return studentsService.getStudentsByProgram(program);
         }
-        return studentsService.getStudentsByProgram(program);
+        if(course != null){
+            return studentsService.getStudentsByCourse(course);
+        }
+        return studentsService.getAllStudents();
     }
 
     // ... webapi/students/1

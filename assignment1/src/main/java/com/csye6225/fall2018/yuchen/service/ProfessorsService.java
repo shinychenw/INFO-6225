@@ -4,7 +4,6 @@ import com.csye6225.fall2018.yuchen.datamodel.InMemoryDatabase;
 import com.csye6225.fall2018.yuchen.datamodel.Professor;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 

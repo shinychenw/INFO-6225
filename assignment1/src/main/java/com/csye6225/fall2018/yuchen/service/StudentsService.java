@@ -4,7 +4,6 @@ import com.csye6225.fall2018.yuchen.datamodel.InMemoryDatabase;
 import com.csye6225.fall2018.yuchen.datamodel.Student;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -47,11 +46,18 @@ public class StudentsService {
         return stud;
     }
 
-    public List<Student> getStudentsByProgram(String progName){
+    public List<Student> getStudentsByProgram(String programName){
         ArrayList<Student> list = new ArrayList<>();
         for(Student stud: stud_Map.values()){
-            if(stud.getProgramName().equals(progName))
-                list.add(stud);
+            if(stud.getProgramName().equals(programName)) list.add(stud);
+        }
+        return list;
+    }
+
+    public List<Student> getStudentsByCourse(String courseName){
+        ArrayList<Student> list = new ArrayList<>();
+        for(Student stud: stud_Map.values()){
+            if(stud.isEnrolled(courseName)) list.add(stud);
         }
         return list;
     }
