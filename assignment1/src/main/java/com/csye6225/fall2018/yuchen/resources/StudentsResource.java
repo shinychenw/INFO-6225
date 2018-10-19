@@ -14,12 +14,12 @@ public class StudentsResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Student> getStudentsByProgram(@QueryParam("program") String program, @QueryParam("course") String course){
+    public List<Student> getStudentsByProgram(@QueryParam("program") String program, @QueryParam("courseId") Long courseId){
         if(program != null){
             return studentsService.getStudentsByProgram(program);
         }
-        if(course != null){
-            return studentsService.getStudentsByCourse(course);
+        if(courseId != null){
+            return studentsService.getStudentsByCourseId(courseId);
         }
         return studentsService.getAllStudents();
     }

@@ -22,6 +22,7 @@ public class StudentsService {
     public Student addStudent(Student stud){
         long nextAvailableId = stud_Map.size() + 1;
         stud.setStudentId(nextAvailableId);
+        stud.setCoursesEnrolled(new ArrayList<Long>());
         stud_Map.put(nextAvailableId, stud);
 
         return stud_Map.get(nextAvailableId);
@@ -54,10 +55,10 @@ public class StudentsService {
         return list;
     }
 
-    public List<Student> getStudentsByCourse(String courseName){
+    public List<Student> getStudentsByCourseId(Long courseId){
         ArrayList<Student> list = new ArrayList<>();
         for(Student stud: stud_Map.values()){
-            if(stud.isEnrolled(courseName)) list.add(stud);
+            if(stud.isEnrolled(courseId)) list.add(stud);
         }
         return list;
     }
