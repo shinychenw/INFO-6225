@@ -2,16 +2,19 @@ package com.csye6225.fall2018.yuchen.datamodel;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
 
-@DynamoDBTable(tableName = "Professor")
-public class Professor {
+import java.util.List;
+
+@DynamoDBTable(tableName = "Student")
+public class Student {
     private String id;
-    private String professorId;
+    private String studentId;
     private String firstName;
     private String lastName;
     private String joiningDate;
     private String department;
+    private List<String> registeredCourses;
 
-    public Professor(){
+    public Student(){
 
     }
 
@@ -25,13 +28,13 @@ public class Professor {
         this.id = professorId;
     }
 
-    @DynamoDBIndexHashKey(globalSecondaryIndexName = "ProfessorId", attributeName = "ProfessorId")
-    public String getProfessorId() {
-        return professorId;
+    @DynamoDBIndexHashKey(globalSecondaryIndexName = "StudentId", attributeName = "StudentId")
+    public String getStudentId() {
+        return studentId;
     }
 
-    public void setProfessorId(String professorId) {
-        this.professorId = professorId;
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
     }
 
     @DynamoDBAttribute(attributeName = "FirstName")
@@ -70,10 +73,19 @@ public class Professor {
         this.joiningDate = joiningDate;
     }
 
+    @DynamoDBAttribute(attributeName = "RegisteredCourses")
+    public List<String> getRegisteredCourses() {
+        return registeredCourses;
+    }
+
+    public void setRegisteredCourses(List<String> registeredCourses) {
+        this.registeredCourses = registeredCourses;
+    }
+
     @DynamoDBIgnore
     @Override
     public String toString(){
-        return "ProfessorId=" + getProfessorId()+ ",FirstName=" + getFirstName()+",Department="+getDepartment()+
+        return "StudentId=" + getStudentId()+ ",FirstName=" + getFirstName()+",Department="+getDepartment()+
                 ",JoiningDate="+getJoiningDate();
     }
 }

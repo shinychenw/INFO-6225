@@ -39,6 +39,8 @@ public class ProfessorsService {
 
         Iterator<Professor> scanResult = mapper.scan(Professor.class, scanExpression).iterator();
 
+        if(scanResult.hasNext() == false) return null;
+
         Professor prof =  scanResult.next();
         mapper.delete(prof);
         return prof;
@@ -54,15 +56,18 @@ public class ProfessorsService {
 
         Iterator<Professor> scanResult = mapper.scan(Professor.class, scanExpression).iterator();
 
+        if(scanResult.hasNext() == false) return null;
+
         Professor oldProfObject =  scanResult.next();
-        String Id = oldProfObject.getId();
-        profId = oldProfObject.getProfessorId();
-        prof.setId(Id);
-        prof.setProfessorId(profId);
+        if(prof.getProfessorId()!=null) oldProfObject.setProfessorId(prof.getProfessorId());
+        if(prof.getDepartment()!=null) oldProfObject.setDepartment(prof.getDepartment());
+        if(prof.getFirstName()!=null) oldProfObject.setFirstName(prof.getFirstName());
+        if(prof.getLastName()!=null) oldProfObject.setLastName(prof.getLastName());
+        if(prof.getJoiningDate()!=null) oldProfObject.setJoiningDate(prof.getJoiningDate());
 
-        mapper.save(prof);
+        mapper.save(oldProfObject);
 
-        return prof;
+        return oldProfObject;
     }
 
     // Getting a list of all professor
@@ -88,6 +93,8 @@ public class ProfessorsService {
                 .withFilterExpression("ProfessorId = :val1").withExpressionAttributeValues(eav);
 
         Iterator<Professor> scanResult = mapper.scan(Professor.class, scanExpression).iterator();
+
+        if(scanResult.hasNext() == false) return null;
 
         return scanResult.next();
 

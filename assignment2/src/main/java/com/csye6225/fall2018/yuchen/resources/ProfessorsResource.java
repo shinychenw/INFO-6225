@@ -5,7 +5,6 @@ import com.csye6225.fall2018.yuchen.service.ProfessorsService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.Iterator;
 import java.util.List;
 
 //../webapi/myresource
@@ -23,7 +22,6 @@ public class ProfessorsResource {
         return professorsService.getProfessorsByDepartment(department);
     }
 
-    // ... webapi/professor/1
     @GET
     @Path("/{professorId}")
     @Produces(MediaType.APPLICATION_JSON)
