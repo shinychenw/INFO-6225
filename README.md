@@ -12,14 +12,20 @@ webapi/students/{studentId}
 webapi/students/
 body:
 {
-	"firstName":"Yuchen",
-	"lastName":"Wang"
+    "department": "IS",
+    "firstName": "Yufei",
+    "joiningDate": "2016-10-24 21:59:06",
+    "lastName": "Gao",
+    "registeredCourses": [
+        "CloudComputing",
+        "WebDesign"
+    ],
+    "studentId": "gao.yufei"
 }
 3.PUT
 webapi/students/{studentId}
 {
-	"firstName":"Yuchen",
-	"lastName":"Wang"
+	"department":"InformationSystems"
 }
 4.DELETE
 webapi/students/{studentId}
@@ -33,49 +39,64 @@ webapi/ courses /{courseId}
 webapi/ courses /
 body:
 {
-	"courseName":"IS"}
+        "boardId": "WD",
+        "courseId": "WebDesign",
+        "department": "InformationSystems",
+        "professorId": "a.jami",
+        "roster": [
+            "wang.yuchen3"
+        ],
+        "taId": "fu.jing1"
+    }
 3.PUT
 webapi/ courses /{courseId}
 {
-	"courseName":"IS"
+	"department":"IS"
 }
 4.DELETE
 webapi/ courses /{courseId}
 
-<lecture>
+<announcement>
 1.GET
-webapi/ courses /{courseId}/lectures
-webapi/ courses /{courseId}/lectures/{lectureId}
+webapi/ announcements /
+webapi/ announcements /{boardId}_{announcementId}
 
 2.POST
-webapi/ courses /{courseId}/lectures
+webapi/ announcements
 body:
 {
-	"notes":" notes ",
-	"associatedMaterial":" associatedMaterial "
-}
+        "announcementId": "CC2",
+        "announcementText": "Hi!",
+        "boardId": "CC"
+    }
 
-3.DELETE
-webapi/ courses /{courseId}/lectures/{lectureId}
-
-<program>
-1.GET
-webapi/programs/
-webapi/programs/{programId}
-
-2.POST
-webapi/programs/
-body:
-{
-	"programName":"IS"
-}
 3.PUT
-webapi/programs/{programId}
+webapi/ announcements /{boardId}_{announcementId}
 {
-	"programName":"IS"
-}
+        "announcementText": "Hello!"
+    }
 4.DELETE
-webapi/programs/{programId}
+webapi/ announcements /{boardId}_{announcementId}
+
+<board>
+1.GET
+webapi/boards/
+webapi/boards/{boardId}
+
+2.POST
+webapi/boards/
+body:
+{
+        "boardId": "WD",
+        "courseId": "WebDsign"
+    }
+3.PUT
+webapi/boards/{boardId}
+{
+        "courseId": "WebDesign"
+    }
+4.DELETE
+webapi/boards/{boardId}
 
 <professor>
 1.GET
@@ -86,14 +107,16 @@ webapi/professors/{professorId}
 webapi/professors/
 body:
 {
-	"firstName":"Yufei",
-"lastName":"Gao"
-}
+        "department": "InformationSystems",
+        "firstName": "Yuchen",
+        "joiningDate": "2016-10-24 21:59:06",
+        "lastName": "Wang",
+        "professorId": "wang.yuchen3"
+    }
 3.PUT
 webapi/professors/{professorId}
 {
-"firstName":"Yufei",
-"lastName":"Gao"
+        "department": "IS"
 }
 4.DELETE
 webapi/professors/{professorId}
