@@ -23,10 +23,10 @@ public class AnnouncementsService {
     }
 
     //Adding a course
-    public Announcement addAnnouncement(Announcement board){
+    public Announcement addAnnouncement(Announcement announcement){
 
-        mapper.save(board);
-        return board;
+        mapper.save(announcement);
+        return announcement;
     }
 
     //Deleting

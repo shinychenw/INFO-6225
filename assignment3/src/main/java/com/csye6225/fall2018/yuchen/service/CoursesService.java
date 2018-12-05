@@ -5,11 +5,9 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.csye6225.fall2018.yuchen.datamodel.Course;
 import com.csye6225.fall2018.yuchen.datamodel.DynamoDBConnector;
+import com.csye6225.fall2018.yuchen.datamodel.Student;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class CoursesService {
 
@@ -64,6 +62,8 @@ public class CoursesService {
         if(course.getProfessorId()!=null) oldCourseObject.setProfessorId(course.getProfessorId());
         if(course.getTaId()!=null) oldCourseObject.setTaId(course.getTaId());
         if(course.getRoster()!=null) oldCourseObject.setRoster(course.getRoster());
+        if(course.getNotificationTopic()!=null) oldCourseObject.setNotificationTopic(course.getNotificationTopic());
+
 
         mapper.save(oldCourseObject);
 
@@ -111,5 +111,56 @@ public class CoursesService {
 
         List<Course> scanResult = mapper.scan(Course.class, scanExpression);
         return scanResult;
+    }
+
+    public List<Course> registerStudent(String studentId, List<String> registedCourses){
+        List<Course> courseList = new ArrayList<>();
+        if(registedCourses == null) return courseList;
+        if(registedCourses.size() == 0) return courseList;
+        for(String courseId:registedCourses){
+            Course course = getCourse(courseId);
+            if(course.getRoster()==null) course.setRoster(new ArrayList<String>());
+            if(!course.getRoster().contains(studentId))
+                course.getRoster().add(studentId);
+            courseList.add(course);
+            updateCourseInformation(courseId, course);
+        }
+
+        return courseList;
+    }
+
+    public List<Course> unregisterStudent(String studentId, List<String> unregistedCourses){
+        List<Course> courseList = new ArrayList<>();
+        if(unregistedCourses == null) return courseList;
+        if(unregistedCourses.size() == 0) return courseList;
+        for(String courseId:unregistedCourses){
+            Course course = getCourse(courseId);
+            if(course == null) continue;
+            if(course.getRoster()!=null) course.getRoster().remove(studentId);
+            courseList.add(course);
+            updateCourseInformation(courseId, course);
+        }
+        return courseList;
+    }
+
+    public List<Course> updateStudent(String studentId,List<String> oldCourses, List<String> newCourses){
+        if(newCourses == null) return new ArrayList<>();
+        if(newCourses.size() == 0) return new ArrayList<>();
+
+        List<Course> courseList = getAllCourses();
+        for(Course course:courseList){
+            if(course.getRoster()!=null) course.getRoster().remove(studentId);
+            updateCourseInformation(course.getCourseId(), course);
+        }
+        courseList = new ArrayList<>();
+        for(String courseId:newCourses){
+            Course course = getCourse(courseId);
+            if(course.getRoster()==null) course.setRoster(new ArrayList<String>());
+            if(!course.getRoster().contains(studentId))
+                course.getRoster().add(studentId);
+            courseList.add(course);
+            updateCourseInformation(courseId, course);
+        }
+        return courseList;
     }
 }

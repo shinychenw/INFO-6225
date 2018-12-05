@@ -13,6 +13,7 @@ public class Student {
     private String joiningDate;
     private String department;
     private List<String> registeredCourses;
+    private String emailId;
 
     public Student(){
 
@@ -80,6 +81,15 @@ public class Student {
 
     public void setRegisteredCourses(List<String> registeredCourses) {
         this.registeredCourses = registeredCourses;
+    }
+
+    @DynamoDBAttribute(attributeName = "EmailId")
+    public String getEmailId() {
+        return emailId;
+    }
+
+    public void setEmailId(String emailId) {
+        this.emailId = emailId;
     }
 
     @DynamoDBIgnore

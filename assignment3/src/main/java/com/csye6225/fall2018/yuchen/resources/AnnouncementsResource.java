@@ -15,7 +15,7 @@ public class AnnouncementsResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Announcement> getCoursesByBoardId(@QueryParam("boardId") String boardId){
+    public List<Announcement> getAnnouncementsByBoardId(@QueryParam("boardId") String boardId){
         if(boardId == null){
             return announcementsService.getAllAnnouncements();
         }
@@ -25,22 +25,22 @@ public class AnnouncementsResource {
     @GET
     @Path("/{boardId}_{announcementId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Announcement getCourse(@PathParam("boardId") String boardId, @PathParam("announcementId") String announcementId){
+    public Announcement getAnnouncement(@PathParam("boardId") String boardId, @PathParam("announcementId") String announcementId){
         return announcementsService.getAnnouncement(boardId,announcementId);
     }
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Announcement addCourse(Announcement announcementId){
-        return  announcementsService.addAnnouncement(announcementId);
+    public Announcement addAnnouncement(Announcement announcement){
+        return  announcementsService.addAnnouncement(announcement);
     }
 
     @DELETE
     @Path("/{boardId}_{announcementId}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Announcement deleteCourse(@PathParam("boardId") String boardId, @PathParam("announcementId") String announcementId){
+    public Announcement deleteAnnouncement(@PathParam("boardId") String boardId, @PathParam("announcementId") String announcementId){
         return announcementsService.deleteAnnouncement(boardId,announcementId);
     }
 
@@ -48,7 +48,7 @@ public class AnnouncementsResource {
     @Path("/{boardId}_{announcementId}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Announcement updateCourse(@PathParam("boardId") String boardId, @PathParam("announcementId") String announcementId, Announcement announcement){
+    public Announcement updateAnnouncement(@PathParam("boardId") String boardId, @PathParam("announcementId") String announcementId, Announcement announcement){
         return announcementsService.updatAnnouncementInformation(boardId,announcementId, announcement);
     }
 }

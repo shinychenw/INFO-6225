@@ -13,6 +13,7 @@ public class Course {
     private String department;
     private String boardId;
     private List<String> roster;
+    private String notificationTopic;
 
     public Course(){
 
@@ -80,6 +81,15 @@ public class Course {
 
     public void setBoardId(String boardId) {
         this.boardId = boardId;
+    }
+
+    @DynamoDBAttribute(attributeName = "NotificationTopic")
+    public String getNotificationTopic() {
+        return notificationTopic;
+    }
+
+    public void setNotificationTopic(String notificationTopic) {
+        this.notificationTopic = notificationTopic;
     }
 
     @DynamoDBIgnore

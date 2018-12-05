@@ -15,7 +15,7 @@ public class BoardsResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Board> getCoursesByDepartment(@QueryParam("courseId") String courseId){
+    public List<Board> getBoardsByDepartment(@QueryParam("courseId") String courseId){
         if(courseId == null){
             return boardsService.getAllBoards();
         }
@@ -25,14 +25,14 @@ public class BoardsResource {
     @GET
     @Path("/{boardId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Board getCourse(@PathParam("boardId") String boardId){
+    public Board getBoard(@PathParam("boardId") String boardId){
         return boardsService.getBoard(boardId);
     }
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Board addCourse(Board board){
+    public Board addBoard(Board board){
         return  boardsService.addBoard(board);
     }
 
@@ -40,7 +40,7 @@ public class BoardsResource {
     @Path("/{boardId}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Board deleteCourse(@PathParam("boardId") String boardId){
+    public Board deleteBoard(@PathParam("boardId") String boardId){
         return boardsService.deleteBoard(boardId);
     }
 
@@ -48,7 +48,7 @@ public class BoardsResource {
     @Path("/{boardId}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Board updateCourse(@PathParam("boardId") String boardId, Board board){
+    public Board updateBoard(@PathParam("boardId") String boardId, Board board){
         return boardsService.updateBoardInformation(boardId, board);
     }
 }

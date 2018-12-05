@@ -6,10 +6,7 @@ import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.csye6225.fall2018.yuchen.datamodel.DynamoDBConnector;
 import com.csye6225.fall2018.yuchen.datamodel.Student;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class StudentsService {
 
@@ -22,7 +19,7 @@ public class StudentsService {
         mapper = new DynamoDBMapper(dynamoDB.getClient());
     }
 
-    //Adding a professor
+    //Adding a student
     public Student addStudent(Student student){
 
         mapper.save(student);
@@ -64,7 +61,17 @@ public class StudentsService {
         if(student.getFirstName()!=null) oldStudObject.setFirstName(student.getFirstName());
         if(student.getLastName()!=null) oldStudObject.setLastName(student.getLastName());
         if(student.getJoiningDate()!=null) oldStudObject.setJoiningDate(student.getJoiningDate());
-        if(student.getRegisteredCourses()!=null) oldStudObject.setRegisteredCourses(student.getRegisteredCourses());
+        if(student.getEmailId()!=null) oldStudObject.setEmailId(student.getEmailId());
+
+        if(student.getRegisteredCourses()!=null) {
+            int n = student.getRegisteredCourses().size();
+            if(n > 3) {
+                for (int i = 0; i < n-3 ; i++)
+                    student.getRegisteredCourses().remove(i);
+                System.out.println("this student's registedCourses is over the max limit of 3");
+            }
+            oldStudObject.setRegisteredCourses(student.getRegisteredCourses());
+        }
 
         mapper.save(oldStudObject);
 
@@ -112,5 +119,45 @@ public class StudentsService {
 
         List<Student> scanResult = mapper.scan(Student.class, scanExpression);
         return scanResult;
+    }
+
+
+    //Register courses
+    public Student registerCourses(String studentId, List<String> registeredCourses){
+        Student student = getStudent(studentId);
+        if(registeredCourses == null) return student;
+        if(registeredCourses.size() == 0) return student;
+        if(student.getRegisteredCourses() == null) student.setRegisteredCourses(new ArrayList<String>());
+        for(String courseId:registeredCourses){
+            student.getRegisteredCourses().add(courseId);
+        }
+        Set set = new HashSet(student.getRegisteredCourses());
+        student.getRegisteredCourses().clear();
+        student.getRegisteredCourses().addAll(set);
+        updateStudentInformation(studentId,student);
+        return student;
+    }
+
+    //Unregister courses
+    public Student unregisterCourses(String studentId, List<String> unregisteredCourses){
+        Student student = getStudent(studentId);
+        if(unregisteredCourses == null) return student;
+        if(unregisteredCourses.size() == 0) return student;
+        if(student.getRegisteredCourses() == null) return student;
+        for(String courseId:unregisteredCourses){
+            student.getRegisteredCourses().remove(courseId);
+        }
+        updateStudentInformation(studentId,student);
+        return student;
+    }
+
+    //Update courses
+    public Student updateCourses(String studentId, List<String> newCourses){
+        Student student = getStudent(studentId);
+        Set set = new HashSet(newCourses);
+        List<String> list = new ArrayList<>(set);
+        student.setRegisteredCourses(list);
+        updateStudentInformation(studentId,student);
+        return student;
     }
 }
