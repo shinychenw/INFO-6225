@@ -35,8 +35,8 @@ public class CoursesResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Course addCourse(Course course){
-        String topicarn = snsService.createTopic("topic"+course.getBoardId());
-        course.setNotificationTopic(topicarn);
+        //String topicarn = snsService.createTopic("topic"+course.getBoardId());
+        //course.setNotificationTopic(topicarn);
         return  coursesService.addCourse(course);
     }
 
@@ -46,7 +46,7 @@ public class CoursesResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Course deleteCourse(@PathParam("courseId") String courseId){
         Course course = coursesService.getCourse(courseId);
-        snsService.deleteTopic(course.getNotificationTopic());
+        if(!course.getBoardId().equals(" ")) snsService.deleteTopic(course.getNotificationTopic());
         return coursesService.deleteCourse(courseId);
     }
 
