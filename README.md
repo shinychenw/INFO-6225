@@ -2,7 +2,7 @@
 
 This repo is for handing on Assignments of 6225.
 
-# part Apis for assignment1
+# part Apis for assignment2
 <students>
 1.GET
 webapi/students/
@@ -120,3 +120,32 @@ webapi/professors/{professorId}
 }
 4.DELETE
 webapi/professors/{professorId}
+
+# part Apis for assignment3
+<SNS>
+1.GET
+webapi/sns/createTopic?topicname=topicAL
+
+2.GET
+webapi/sns/deleteTopic?topicarn=arn:aws:sns:us-east-2:340751266186:topicAL
+
+3.GET
+webapi/sns/subscribe?topicarn=arn:aws:sns:us-east-2:340751266186:topicAL
+
+4.GET
+webapi/sns/unsubscribe?topicarn=arn:aws:sns:us-east-2:340751266186:topicAL
+
+
+<Student>
+
+1.POST
+webapi/students/{studentId}/register
+body:
+[
+    {
+        "S": "WebDesign"
+    }
+]
+
+2.DELETE
+webapi/students/{studentId}/unregister

@@ -22,7 +22,6 @@ public class CoursesService {
     //Adding a course
     public Course addCourse(Course course){
         if(course.getRoster() == null && course.getNotificationTopic() == null && course.getBoardId()==null){
-            course.setRoster(new ArrayList<String>());
             course.setNotificationTopic(" ");
             course.setBoardId(" ");
         }

@@ -1,6 +1,7 @@
 package com.csye6225.fall2018.yuchen.resources;
 
 import com.csye6225.fall2018.yuchen.datamodel.Course;
+import com.csye6225.fall2018.yuchen.service.BoardsService;
 import com.csye6225.fall2018.yuchen.service.CoursesService;
 import com.csye6225.fall2018.yuchen.service.SNSService;
 
@@ -14,6 +15,7 @@ public class CoursesResource {
 
     CoursesService coursesService = new CoursesService();
     SNSService snsService = new SNSService();
+    BoardsService boardsService = new BoardsService();
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -35,8 +37,6 @@ public class CoursesResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Course addCourse(Course course){
-        //String topicarn = snsService.createTopic("topic"+course.getBoardId());
-        //course.setNotificationTopic(topicarn);
         return  coursesService.addCourse(course);
     }
 
@@ -46,7 +46,8 @@ public class CoursesResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Course deleteCourse(@PathParam("courseId") String courseId){
         Course course = coursesService.getCourse(courseId);
-        if(!course.getBoardId().equals(" ")) snsService.deleteTopic(course.getNotificationTopic());
+        if(!course.getNotificationTopic().equals(" ")) snsService.deleteTopic(course.getNotificationTopic());
+        if(!course.getBoardId().equals(" ")) boardsService.deleteBoard(course.getBoardId());
         return coursesService.deleteCourse(courseId);
     }
 
