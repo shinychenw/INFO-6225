@@ -1,5 +1,6 @@
 package com.csye6225.fall2018.yuchen.datamodel;
 
+import com.amazonaws.auth.InstanceProfileCredentialsProvider;
 import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
@@ -17,8 +18,8 @@ public class DynamoDBConnector {
 
     public static void init() {
         if(dynamoDB == null) {
-            //InstanceProfileCredentialsProvider credentialsProvider = new InstanceProfileCredentialsProvider(false);
-            ProfileCredentialsProvider credentialsProvider = new ProfileCredentialsProvider();
+            InstanceProfileCredentialsProvider credentialsProvider = new InstanceProfileCredentialsProvider(false);
+            //ProfileCredentialsProvider credentialsProvider = new ProfileCredentialsProvider();
             credentialsProvider.getCredentials();
 
             dynamoDB = AmazonDynamoDBClientBuilder

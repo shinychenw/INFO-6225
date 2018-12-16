@@ -1,5 +1,6 @@
 package com.csye6225.fall2018.yuchen.datamodel;
 
+import com.amazonaws.auth.InstanceProfileCredentialsProvider;
 import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.sns.AmazonSNSClient;
@@ -10,8 +11,8 @@ public class SNSConnector {
 
     public static AmazonSNSClient getClient(){
         if(snsClient == null){
-            //InstanceProfileCredentialsProvider credentialsProvider = new InstanceProfileCredentialsProvider(false);
-            ProfileCredentialsProvider credentialsProvider = new ProfileCredentialsProvider();
+            InstanceProfileCredentialsProvider credentialsProvider = new InstanceProfileCredentialsProvider(false);
+            //ProfileCredentialsProvider credentialsProvider = new ProfileCredentialsProvider();
             credentialsProvider.getCredentials();
 
             //create a new SNS client and set endpoint
